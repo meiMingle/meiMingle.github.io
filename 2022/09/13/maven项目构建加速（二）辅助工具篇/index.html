@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Maven项目构建加速（二）辅助工具篇 | Tom Xin&#39;s Blog</title>
+        <meta name="author" content="Tom Xin">
+        <meta name="description" content="相信光吗？">
+        <meta name="keywords" content="java,sql,develop">
+        <link rel="icon" href="https://q.qlogo.cn/g?b=qq&nk=766781886&s=0">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Tom Xin's Blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Tom Xin's Blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Maven项目构建加速（二）辅助工具篇 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/教程/">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/maven/" style="color: #00bcd4">
+                    maven
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <p><strong>mvnd</strong>是以maven为基础并融合了部分Gradle 和 Takari 中已知技术的构建工具，通过引入守护进程、使用GraalVM启动等方式提高构建速度，其命令绝大部分与maven兼容。详细介绍参考官方文档 <a target="_blank" rel="noopener" href="https://github.com/apache/maven-mvnd#introduction">Introduction of mvnd</a></p>
+<p><strong>MavenHelper</strong>是IntelliJ IDEA的插件，以前我们主要用它来分析maven依赖，解决依赖冲突。自4.20版本，插件增加了通过终端使用自定义命令 (mvnd) 运行目标的选项，现在我们以可以借助它更快的执行mvnd命令，本文将对此进行讲解。</p>
+<h1 id="一-mvnd的使用"><a class="markdownIt-Anchor" href="#一-mvnd的使用"></a> 一、mvnd的使用</h1>
+<h2 id="1配置"><a class="markdownIt-Anchor" href="#1配置"></a> 1.配置</h2>
+<p>下载、安装、配置环境变量可以请直接参考官方文档 <a target="_blank" rel="noopener" href="https://github.com/apache/maven-mvnd#how-to-install-mvnd">How to install <code>mvnd</code></a> ，配置环节是比较容易出错的，这里重点讲述。</p>
+<p>以mvnd-8.0版本为例，编辑mvnd-8.0-windows-amd64\conf\mvnd.properties配置文件，修改以下几处配置：</p>
+<pre class="highlight"><code class="properties"><span class="hljs-comment">#大约124行，如果不指定utf-8编码，在一些文件编码使用不规范的项目执行命令容易报错</span>
+<span class="hljs-meta">mvnd.jvmArgs</span> = <span class="hljs-string">-Dfile.encoding=UTF-8</span>
+</code></pre>
+<pre class="highlight"><code class="properties"><span class="hljs-comment">#大约149行，如果配置了JAVA_HOME环境变量这里可以不配置</span>
+<span class="hljs-meta">java.home</span> = <span class="hljs-string">&lt;path&gt; #例如：C:/Users/Maria/.jdks/corretto-1.8.0_342</span>
+</code></pre>
+<pre class="highlight"><code class="properties"><span class="hljs-comment">#大约153行，&lt;path&gt;为原有maven的settings.xml文件的路径</span>
+<span class="hljs-meta">maven.settings</span> = <span class="hljs-string">&lt;path&gt; #例如：D:/apache-maven-3.8.6/conf/settings.xml</span>
+</code></pre>
+<p>应当注意的是：</p>
+<p>① 在0.8及以下版本中，环境变量<code>JAVA_HOM</code>优先级高于这里的<code>jvm.home</code>配置，详情见<a target="_blank" rel="noopener" href="https://github.com/apache/maven-mvnd/issues/675#issuecomment-1229908964">The <code>JAVA_HOME</code> environment variable takes precedence over the <code>java.home</code> configuration property</a>。但在0.8.1版本中已修复了此问题，详情见<a target="_blank" rel="noopener" href="https://github.com/gnodet/mvnd/commit/8f86f6de9b3d92998bf4fa38dc6a19f3a15fb297">System properties should have precedence over environment variables, fixes apache#675</a>。</p>
+<p>②所有路径的分隔符要使用<code>/</code> 而不是<code>\</code>，否则无法识别</p>
+<h2 id="2测试"><a class="markdownIt-Anchor" href="#2测试"></a> 2.测试</h2>
+<p>查看mvnd版本</p>
+<pre class="highlight"><code class="shell"><span class="hljs-meta">#</span><span class="bash">此命令将列出mvnd版本，终端名称，当前生效的java版本及jre路径，内嵌的maven版本及路径，本地语言，平台编码，当前系统的名称、版本、架构、家族</span>
+mvnd -v
+</code></pre>
+<p>查看mvnd守护进程状态</p>
+<pre class="highlight"><code class="shell">mvnd --status
+</code></pre>
+<p>停止所有守护进程的运行</p>
+<pre class="highlight"><code class="shell">mvnd --stop
+</code></pre>
+<p>在项目下打开控制台测试使用mvnd进行构建</p>
+<pre class="highlight"><code class="shell">mvnd clean install -Dmaven.test.skip=true
+</code></pre>
+<h1 id="二-mvnd的使用"><a class="markdownIt-Anchor" href="#二-mvnd的使用"></a> 二、mvnd的使用</h1>
+<h2 id="1配置-2"><a class="markdownIt-Anchor" href="#1配置-2"></a> 1.配置</h2>
+<p>下载、安装MavenHelper自不必说，这里主要说明一下配置。File-》Settings-》Other Settings-》Maven Helper，勾选<code>Use a Terminal to run goals,with a custom mvn command:</code>,并在右侧输入框中将<code>mvn</code> 替换为<code>mvnd</code> 。</p>
+<img src="/2022/09/13/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%BA%8C%EF%BC%89%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E7%AF%87/2022-09-14_005126.png" class="" title="idea配置MavenHelper插件">
+<h2 id="二-测试"><a class="markdownIt-Anchor" href="#二-测试"></a> 二、测试</h2>
+<p>在打开的maven项目里面，使用快捷键<code>Ctrl+Alt+R</code>或<code>Ctrl</code>+<code>Shift</code>+<code>Alt</code>+<code>R</code></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 20xx - 2022 Tom Xin&#39;s Blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @Tom Xin
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        <!-- 鼠标点击爆炸效果 -->
+        <!--<canvas
+            id="fireworks"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"
+        ></canvas>
+        <script type="text/javascript" src="/js/fireworks.js"></script>-->
+        <!-- 流星背景特效 -->
+        <canvas
+            id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"
+        ></canvas>
+        <script src="/js/background.js"></script>
+        
+
+        
+    <style>
+        .copy-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 20px;
+            color: #4D4D4C;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #F7F7F7;
+            background-image: linear-gradient(#F7F7F7, #F7F7F7);
+            border: 1px solid #d5d5d5;
+            border-radius: 3px;
+            user-select: none;
+            outline: 0;
+        }
+
+        .highlight-wrap .copy-btn {
+            transition: opacity .3s ease-in-out;
+            opacity: 0;
+            padding: 2px 6px;
+            position: absolute;
+            right: 4px;
+            top: 8px;
+        }
+
+        .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+            opacity: 1
+        }
+
+        .highlight-wrap {
+            position: relative;
+        }
+    </style>
+
+    <script>
+        /*        $('.highlight').each(function (i, e) {
+                    var $wrap = $('<div>').addClass('highlight-wrap')
+                    $(e).after($wrap)
+                    $wrap.append($('<button>').addClass('copy-btn').append('复制')).on('mouseleave', function (e) {
+                        var $b = $(this).find('.copy-btn')
+                        setTimeout(function () {
+                            $b.text('复制')
+                        }, 300)
+                    }).append(e);
+                    $wrap.parent().off("click").on('click', '.highlight-wrap', function (e) {
+                        var code = $(this).parent().find('code').find('span').map(function (i, e) {
+                            return $(e).text()
+                        }).toArray().join('\n')
+                        alert(code)
+                        var ta = document.createElement('textarea')
+                        document.body.appendChild(ta)
+                        ta.style.position = 'absolute'
+                        ta.style.top = '0px'
+                        ta.style.left = '0px'
+                        ta.value = code
+                        ta.select()
+                        ta.focus()
+                        var result = document.execCommand('copy')
+                        document.body.removeChild(ta)
+
+                if (result) $(this).text('复制成功')
+                else $(this).text('复制失败')
+
+                $(this).blur()
+            });
+        })*/
+        document.querySelectorAll('div.content pre').forEach(element => {
+            const box = document.createElement('div');
+            element.insertAdjacentElement('afterbegin',box);
+            box.classList.add('highlight-container');
+            box.insertAdjacentHTML('beforeend', '<div class="copy-btn"><i class="fa fa-clipboard fa-fw"></i></div>');
+            var button = element.parentNode.querySelector('.copy-btn');
+            button.addEventListener('click', function(event){
+                // alert("点我了")
+                var target = event.currentTarget;
+                var code = [...target.parentNode.querySelectorAll('.code .line')].map(line => line.innerText).join('\n');
+                var ta = document.createElement('textarea');
+                ta.style.top = window.scrollY + 'px'; // Prevent page scrolling
+                ta.style.position = 'absolute';
+                ta.style.opacity = '0';
+                ta.readOnly = true;
+                ta.value = code;
+                document.body.append(ta);
+                const selection = document.getSelection();
+                const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+                ta.select();
+                ta.setSelectionRange(0, code.length);
+                ta.readOnly = false;
+                var result = document.execCommand('copy');
+                if (CONFIG.copycode.show_result) {
+                    target.querySelector('i').className = result ? 'fa fa-check fa-fw' : 'fa fa-times fa-fw';
+                }
+                ta.blur(); // For iOS
+                target.blur();
+                if (selected) {
+                    selection.removeAllRanges();
+                    selection.addRange(selected);
+                }
+                document.body.removeChild(ta);
+            });
+            button.addEventListener('mouseleave', event => {
+                setTimeout(() => {
+                    event.target.querySelector('i').className = 'fa fa-clipboard fa-fw';
+                }, 300);
+            });
+        });
+
+    </script>
+
+
+    </body>
+</html>
