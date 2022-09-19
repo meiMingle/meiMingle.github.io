@@ -149,7 +149,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/maven/" style="color: #00bcd4">
+                <a href="/tags/maven/" style="color: #ffa2c4">
                     maven
                 </a>
             </span>
@@ -189,8 +189,8 @@
 </tbody>
 </table>
 <h2 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子：</h2>
-<pre class="highlight"><code class="shell"><span class="hljs-meta">#</span><span class="bash">将对parent、childB、childA进行构建，并安装到本地maven仓库中,childC将不被构建。</span>
-mvn clean install -pl childB -am
+<p>例子1：对parent、childB、childA进行构建，并安装到本地maven仓库中,childC将不被构建。</p>
+<pre class="highlight"><code class="shell">mvn clean install -pl childB -am
 </code></pre>
 <p>注意：在IntelliJ IDEA中，在子模块中点击右键-》maven-》Run Maven-》<code>install</code>，这个操作与使用命令<code>mvn install - pl &lt;module&gt; -am</code>效果不同。前者在还没有将整个项目install的情况下，可能会因找不到依赖而报错。</p>
 <h1 id="二-跳过测试"><a class="markdownIt-Anchor" href="#二-跳过测试"></a> 二、跳过测试</h1>
@@ -214,13 +214,11 @@ mvn clean install -pl childB -am
 </tbody>
 </table>
 <h2 id="例子-2"><a class="markdownIt-Anchor" href="#例子-2"></a> 例子：</h2>
-<pre class="highlight"><code class="shell"><span class="hljs-meta">#</span><span class="bash">将跳过当前项目所有模块中的的测试用例的执行</span>
-mvn clean install -DskipTests
+<p>例子1：将跳过当前项目所有模块中的的测试用例的执行</p>
+<pre class="highlight"><code class="shell">mvn clean install -DskipTests
 </code></pre>
-<p>将跳过当前项目所有模块中的的测试用例的执行</p>
-<h2 id="例子-3"><a class="markdownIt-Anchor" href="#例子-3"></a> 例子：</h2>
-<pre class="highlight"><code class="shell"><span class="hljs-meta">#</span><span class="bash">跳过当前项目所有模块中的的测试用例的执行，并且不会编译测试用例的类</span>
-mvn clean install -Dmaven.test.skip=true
+<p>例子2：跳过当前项目所有模块中的的测试用例的执行，并且不会编译测试用例的类</p>
+<pre class="highlight"><code class="shell">mvn clean install -Dmaven.test.skip=true
 </code></pre>
 <p>在IntelliJ IDEA中跳过测试，作用等同于<code>-DskipTests</code>参数</p>
 <img src="/2022/09/12/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%B8%80%EF%BC%89%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E7%AF%87/2022-09-12_140947.png" class="" title="idea跳过测试用例">
@@ -241,9 +239,9 @@ mvn clean install -Dmaven.test.skip=true
 </tr>
 </tbody>
 </table>
-<h2 id="例子-4"><a class="markdownIt-Anchor" href="#例子-4"></a> 例子：</h2>
-<pre class="highlight"><code class="shell"><span class="hljs-meta">#</span><span class="bash">开启离线模式</span>
-mvn clean install -o
+<h2 id="例子-3"><a class="markdownIt-Anchor" href="#例子-3"></a> 例子：</h2>
+<p>例子1：开启离线模式</p>
+<pre class="highlight"><code class="shell">mvn clean install -o
 </code></pre>
 <p>在IntelliJ IDEA中开启离线模式，作用等同于<code>-o</code>参数</p>
 <img src="/2022/09/12/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%B8%80%EF%BC%89%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E7%AF%87/2022-09-12_180555.png" class="" title="idea开启离线模式">
@@ -267,9 +265,9 @@ mvn clean install -o
 </tr>
 </tbody>
 </table>
-<h2 id="例子-5"><a class="markdownIt-Anchor" href="#例子-5"></a> 例子：</h2>
-<pre class="highlight"><code class="shell"><span class="hljs-meta">#</span><span class="bash">开启四线程进行并发构建</span>
-mvn clean install -Dmaven.compile.fork=true -T 4
+<h2 id="例子-4"><a class="markdownIt-Anchor" href="#例子-4"></a> 例子：</h2>
+<p>例子1：开启四线程进行并发构建</p>
+<pre class="highlight"><code class="shell">mvn clean install -Dmaven.compile.fork=true -T 4
 </code></pre>
 <p>在IntelliJ IDEA中开启多线程构建，作用等同于<code>-Dmaven.compile.fork=true -T 4</code>参数</p>
 <img src="/2022/09/12/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%B8%80%EF%BC%89%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E7%AF%87/2022-09-12_181509.png" class="" title="idea开启多线程构建">
