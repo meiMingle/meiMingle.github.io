@@ -148,7 +148,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/maven/" style="color: #00a596">
+                        <a href="/tags/maven/" style="color: #00bcd4">
                             maven
                         </a>
                     </span>
@@ -185,7 +185,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/maven/" style="color: #03a9f4">
+                        <a href="/tags/maven/" style="color: #00a596">
                             maven
                         </a>
                     </span>
@@ -220,7 +220,6 @@
                 <img id="img_content" alt="img_show">
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
         <script type="text/javascript" src="https://cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
         <script src="/js/particlex.js"></script>
@@ -238,121 +237,6 @@
         ></canvas>
         <script src="/js/background.js"></script>
         
-
-        
-    <style>
-        .copy-btn {
-            display: inline-block;
-            padding: 6px 12px;
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 20px;
-            color: #4D4D4C;
-            white-space: nowrap;
-            vertical-align: middle;
-            cursor: pointer;
-            background-color: #F7F7F7;
-            background-image: linear-gradient(#F7F7F7, #F7F7F7);
-            border: 1px solid #d5d5d5;
-            border-radius: 3px;
-            user-select: none;
-            outline: 0;
-        }
-
-        .highlight-wrap .copy-btn {
-            transition: opacity .3s ease-in-out;
-            opacity: 0;
-            padding: 2px 6px;
-            position: absolute;
-            right: 4px;
-            top: 8px;
-        }
-
-        .highlight-wrap:hover .copy-btn,
-        .highlight-wrap .copy-btn:focus {
-            opacity: 1
-        }
-
-        .highlight-wrap {
-            position: relative;
-        }
-    </style>
-
-    <script>
-        /*        $('.highlight').each(function (i, e) {
-                    var $wrap = $('<div>').addClass('highlight-wrap')
-                    $(e).after($wrap)
-                    $wrap.append($('<button>').addClass('copy-btn').append('复制')).on('mouseleave', function (e) {
-                        var $b = $(this).find('.copy-btn')
-                        setTimeout(function () {
-                            $b.text('复制')
-                        }, 300)
-                    }).append(e);
-                    $wrap.parent().off("click").on('click', '.highlight-wrap', function (e) {
-                        var code = $(this).parent().find('code').find('span').map(function (i, e) {
-                            return $(e).text()
-                        }).toArray().join('\n')
-                        alert(code)
-                        var ta = document.createElement('textarea')
-                        document.body.appendChild(ta)
-                        ta.style.position = 'absolute'
-                        ta.style.top = '0px'
-                        ta.style.left = '0px'
-                        ta.value = code
-                        ta.select()
-                        ta.focus()
-                        var result = document.execCommand('copy')
-                        document.body.removeChild(ta)
-
-                if (result) $(this).text('复制成功')
-                else $(this).text('复制失败')
-
-                $(this).blur()
-            });
-        })*/
-        document.querySelectorAll('div.content pre').forEach(element => {
-            const box = document.createElement('div');
-            element.insertAdjacentElement('afterbegin',box);
-            box.classList.add('highlight-container');
-            box.insertAdjacentHTML('beforeend', '<div class="copy-btn"><i class="fa fa-clipboard fa-fw"></i></div>');
-            var button = element.parentNode.querySelector('.copy-btn');
-            button.addEventListener('click', function(event){
-                // alert("点我了")
-                var target = event.currentTarget;
-                var code = [...target.parentNode.querySelectorAll('.code .line')].map(line => line.innerText).join('\n');
-                var ta = document.createElement('textarea');
-                ta.style.top = window.scrollY + 'px'; // Prevent page scrolling
-                ta.style.position = 'absolute';
-                ta.style.opacity = '0';
-                ta.readOnly = true;
-                ta.value = code;
-                document.body.append(ta);
-                const selection = document.getSelection();
-                const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-                ta.select();
-                ta.setSelectionRange(0, code.length);
-                ta.readOnly = false;
-                var result = document.execCommand('copy');
-                if (CONFIG.copycode.show_result) {
-                    target.querySelector('i').className = result ? 'fa fa-check fa-fw' : 'fa fa-times fa-fw';
-                }
-                ta.blur(); // For iOS
-                target.blur();
-                if (selected) {
-                    selection.removeAllRanges();
-                    selection.addRange(selected);
-                }
-                document.body.removeChild(ta);
-            });
-            button.addEventListener('mouseleave', event => {
-                setTimeout(() => {
-                    event.target.querySelector('i').className = 'fa fa-clipboard fa-fw';
-                }, 300);
-            });
-        });
-
-    </script>
-
 
     </body>
 </html>
