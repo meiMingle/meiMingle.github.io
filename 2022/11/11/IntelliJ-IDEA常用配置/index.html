@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Categories | Tom Xin&#39;s Blog</title>
+        <title>IntelliJ IDEA常用配置 | Tom Xin&#39;s Blog</title>
         <meta name="author" content="Tom Xin">
         <meta name="description" content="相信光吗？">
         <meta name="keywords" content="java,sql,develop">
@@ -119,14 +119,21 @@
 </nav>
                     </div>
                     <div id="main">
-                         
-<div class="categories-tags">
-    
-    <div class="all-s">
+                        
+<div class="article">
+    <div>
+        <h1>IntelliJ IDEA常用配置 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/11/11
+        </span>
         
-        
-        <span>
-            <a href="/categories/IDEA配置/" style="background: #00bcd4">
+        <span class="category">
+            <a href="/categories/IDEA配置/">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
@@ -135,19 +142,39 @@
         </span>
         
         
-        <span>
-            <a href="/categories/教程/" style="background: #00a596">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                教程
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/IDEA/" style="color: #ffa2c4">
+                    IDEA
+                </a>
+            </span>
+            
         </span>
         
     </div>
-    <div id="archives">
-        
+    <div class="content" v-pre>
+        <p>整理一些开发中常用的配置</p>
+<h1 id="一-文件编码"><a class="markdownIt-Anchor" href="#一-文件编码"></a> 一、文件编码</h1>
+<p>通常将编码统一设置为UTF-8能够解决/避免一些乱码问题</p>
+<h2 id="1-idea启动参数"><a class="markdownIt-Anchor" href="#1-idea启动参数"></a> 1、idea启动参数</h2>
+<p>在idea安装目录下的\bi\idea64.exe.vmoptions中添加以下配置</p>
+<pre class="highlight"><code class="text">-Dfile.encoding=UTF-8
+</code></pre>
+<pre class="highlight"><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"footer-icon"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"svg-inline--fa fa-font-awesome fa-fw"</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">"true"</span> <span class="hljs-attr">focusable</span>=<span class="hljs-string">"false"</span>
+                               <span class="hljs-attr">data-prefix</span>=<span class="hljs-string">"fas"</span> <span class="hljs-attr">data-icon</span>=<span class="hljs-string">"font-awesome"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"img"</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span>
+                               <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 448 512"</span> <span class="hljs-attr">data-fa-i2svg</span>=<span class="hljs-string">""</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"currentColor"</span>
+                                                                            <span class="hljs-attr">d</span>=<span class="hljs-string">"M448 48V384c-63.1 22.5-82.3 32-119.5 32c-62.8 0-86.6-32-149.3-32c-20.6 0-36.6 3.6-51.2 8.2v-64c14.6-4.6 30.6-8.2 51.2-8.2c62.7 0 86.5 32 149.3 32c20.4 0 35.6-3 55.5-9.3v-208c-19.9 6.3-35.1 9.3-55.5 9.3c-62.8 0-86.6-32-149.3-32c-50.8 0-74.9 20.6-115.2 28.7V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32s32 14.3 32 32V76.7c40.3-8 64.4-28.7 115.2-28.7c62.7 0 86.5 32 149.3 32c37.1 0 56.4-9.5 119.5-32z"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">path</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- &lt;i class="fa-solid fa-font-awesome fa-fw"&gt;&lt;/i&gt; Font Awesome fontawesome.com --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+
     </div>
+    
+    
 </div>
                          
 <footer id="footer">

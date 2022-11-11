@@ -10,7 +10,7 @@
         <meta name="keywords" content="java,sql,develop">
         <link rel="icon" href="https://q.qlogo.cn/g?b=qq&nk=766781886&s=0">
         <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.2.0/js/all.min.js"></script>
         
         <link rel="stylesheet" href="/css/fonts.min.css">
         <link rel="stylesheet" href="/css/particlex.css">
@@ -149,7 +149,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/maven/" style="color: #00a596">
+                <a href="/tags/maven/" style="color: #ffa2c4">
                     maven
                 </a>
             </span>
@@ -175,7 +175,7 @@
 <pre class="highlight"><code class="properties"><span class="hljs-meta">maven.settings</span> = <span class="hljs-string">&lt;path&gt;</span>
 </code></pre>
 <p>应当注意的是：</p>
-<p>① 在0.8及以下版本中，环境变量<code>JAVA_HOM</code>优先级高于这里的<code>jvm.home</code>配置，详情见<a target="_blank" rel="noopener" href="https://github.com/apache/maven-mvnd/issues/675#issuecomment-1229908964">The <code>JAVA_HOME</code> environment variable takes precedence over the <code>java.home</code> configuration property</a>。但在0.8.1版本中已修复了此问题，详情见<a target="_blank" rel="noopener" href="https://github.com/gnodet/mvnd/commit/8f86f6de9b3d92998bf4fa38dc6a19f3a15fb297">System properties should have precedence over environment variables, fixes apache#675</a>。</p>
+<p>①在0.8及以下版本中，环境变量<code>JAVA_HOM</code>优先级高于这里的<code>jvm.home</code>配置，详情见<a target="_blank" rel="noopener" href="https://github.com/apache/maven-mvnd/issues/675#issuecomment-1229908964">The <code>JAVA_HOME</code> environment variable takes precedence over the <code>java.home</code> configuration property</a>。但在0.8.1版本中已修复了此问题，详情见<a target="_blank" rel="noopener" href="https://github.com/gnodet/mvnd/commit/8f86f6de9b3d92998bf4fa38dc6a19f3a15fb297">System properties should have precedence over environment variables, fixes apache#675</a>。</p>
 <p>②所有路径的分隔符要使用<code>/</code> 而不是<code>\</code>，否则无法识别</p>
 <h2 id="2-测试"><a class="markdownIt-Anchor" href="#2-测试"></a> 2、测试</h2>
 <p>查看mvnd版本，此命令将列出mvnd版本，终端名称，当前生效的java版本及jre路径，内嵌的maven版本及路径，本地语言，平台编码，当前系统的名称、版本、架构、家族</p>
