@@ -149,7 +149,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/IDEA/" style="color: #ffa2c4">
+                <a href="/tags/IDEA/" style="color: #00bcd4">
                     IDEA
                 </a>
             </span>
@@ -158,19 +158,25 @@
         
     </div>
     <div class="content" v-pre>
-        <p>整理一些开发中常用的配置</p>
-<h1 id="一-文件编码"><a class="markdownIt-Anchor" href="#一-文件编码"></a> 一、文件编码</h1>
-<p>通常将编码统一设置为UTF-8能够解决/避免一些乱码问题</p>
-<h2 id="1-idea启动参数"><a class="markdownIt-Anchor" href="#1-idea启动参数"></a> 1、idea启动参数</h2>
-<p>在idea安装目录下的\bi\idea64.exe.vmoptions中添加以下配置</p>
+        <p>整理一些开发中常用的配置，基于idea2022.2.3，版本过低的idea配置可能与此有差异</p>
+<h1 id="一-idea启动参数"><a class="markdownIt-Anchor" href="#一-idea启动参数"></a> 一、idea启动参数</h1>
+<p>在idea安装目录下的\bin\idea64.exe.vmoptions文件中，添加以下配置，绝大多数情况下能够避免控制台日志乱码</p>
 <pre class="highlight"><code class="text">-Dfile.encoding=UTF-8
 </code></pre>
-<pre class="highlight"><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"footer-icon"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"svg-inline--fa fa-font-awesome fa-fw"</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">"true"</span> <span class="hljs-attr">focusable</span>=<span class="hljs-string">"false"</span>
-                               <span class="hljs-attr">data-prefix</span>=<span class="hljs-string">"fas"</span> <span class="hljs-attr">data-icon</span>=<span class="hljs-string">"font-awesome"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"img"</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span>
-                               <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 448 512"</span> <span class="hljs-attr">data-fa-i2svg</span>=<span class="hljs-string">""</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"currentColor"</span>
-                                                                            <span class="hljs-attr">d</span>=<span class="hljs-string">"M448 48V384c-63.1 22.5-82.3 32-119.5 32c-62.8 0-86.6-32-149.3-32c-20.6 0-36.6 3.6-51.2 8.2v-64c14.6-4.6 30.6-8.2 51.2-8.2c62.7 0 86.5 32 149.3 32c20.4 0 35.6-3 55.5-9.3v-208c-19.9 6.3-35.1 9.3-55.5 9.3c-62.8 0-86.6-32-149.3-32c-50.8 0-74.9 20.6-115.2 28.7V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32s32 14.3 32 32V76.7c40.3-8 64.4-28.7 115.2-28.7c62.7 0 86.5 32 149.3 32c37.1 0 56.4-9.5 119.5-32z"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">path</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- &lt;i class="fa-solid fa-font-awesome fa-fw"&gt;&lt;/i&gt; Font Awesome fontawesome.com --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<p>修改以下配置，默认的配置太小，对于现在动辄几十个模块的项目来说捉襟见肘</p>
+<pre class="highlight"><code class="text">-Xms2048m
+-Xmx2048m
+-XX:ReservedCodeCacheSize=1024m
 </code></pre>
+<h1 id="二-idea编码配置"><a class="markdownIt-Anchor" href="#二-idea编码配置"></a> 二、idea编码配置</h1>
+<p>打开<code>File-》Settings-》Editor-》File Encoding</code>，按照下图所示修改配置</p>
+<img src="/2022/11/11/IntelliJ-IDEA%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/image-20221111135532195.png" class="" title="image-20221111135532195">
+<h1 id="三-idea编辑风格配置"><a class="markdownIt-Anchor" href="#三-idea编辑风格配置"></a> 三、idea编辑风格配置</h1>
+<p>打开<code>File-》Settings-》Editor-》Code Style-》Java-》Code Generation</code>，按照下图所示修改配置。</p>
+<p>1.使行注释与当前代码缩进对齐</p>
+<p>2.在行注释起始位置插入一个空格</p>
+<p>3.使块注释与当前代码缩进对齐</p>
+<img src="/2022/11/11/IntelliJ-IDEA%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/image-20221111153317043.png" class="" title="image-20221111153317043">
 
     </div>
     
