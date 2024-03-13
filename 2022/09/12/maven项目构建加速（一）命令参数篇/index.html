@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>maven项目构建加速（一）命令参数篇 | Tom Xin&#39;s Blog</title>
+    <meta name="author" content="Tom Xin" />
+    <meta name="description" content="相信光吗？" />
+    <meta name="keywords" content="java,sql,develop" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="https://q.qlogo.cn/g?b=qq&nk=766781886&s=0" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>TOM XIN&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;TOM XIN&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>maven项目构建加速（一）命令参数篇</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2022/9/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%95%99%E7%A8%8B/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/maven/" style="color: #03a9f4">maven</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>比如我们的项目结构如下，下面将使用maven自带的命令参数对该项目构建进行优化。本教程中仅使用了部分用于加速构建的maven参数，更多命令参数请参考官方文档 <a target="_blank" rel="noopener" href="https://maven.apache.org/ref/3.8.6/maven-embedder/cli.html">Maven CLI Options Reference</a>。</p>
+<pre><code class="shell">parent
+    ├─childA(model层)
+    │  └─pom.xml(jar)
+    ├─childB(service层)
+    │  └─pom.xml(jar)
+    ├─childC(web层)
+    │  └─pom.xml(war)
+    └─pom.xml(pom)
+</code></pre>
+<h1 id="一、指定模块构建"><a href="#一、指定模块构建" class="headerlink" title="一、指定模块构建"></a>一、指定模块构建</h1><p>maven构建命令如<code>maven install</code>默认会构建当前项目中的所有模块，参数<code>-pl</code>能指定要构建的模块，一般配合<code>-am</code>参数一起使用。参数的作用如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-pl,--projects &lt;arg&gt;</code></td>
+<td>手动选择需要构建的项目,项目间以逗号分隔,<arg>可以是[group]:artifactId形式，也可以是相对路径</td>
+</tr>
+<tr>
+<td align="left"><code>-am,--also-make</code></td>
+<td>构建指定模块,同时构建指定模块依赖的其他模块</td>
+</tr>
+</tbody></table>
+<h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><p>例子1：对parent、childB、childA进行构建，并安装到本地maven仓库中,childC将不被构建。</p>
+<pre><code class="shell">mvn clean install -pl childB -am
+</code></pre>
+<p>注意：在IntelliJ IDEA中，在子模块中点击右键-》maven-》Run Maven-》<code>install</code>，这个操作与使用命令<code>mvn install - pl &lt;module&gt; -am</code>效果不同。前者在还没有将整个项目install的情况下，可能会因找不到依赖而报错。</p>
+<h1 id="二、跳过测试"><a href="#二、跳过测试" class="headerlink" title="二、跳过测试"></a>二、跳过测试</h1><p>跳过测试有两种，<code>-DskipTests</code>和<code>-Dmaven.test.skip=true</code>区别如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-DskipTests</td>
+<td>不执行测试用例，但编译测试用例类生成相应的class文件至target&#x2F;test-classes下</td>
+</tr>
+<tr>
+<td>-Dmaven.test.skip&#x3D;true</td>
+<td>不执行测试用例，也不编译测试用例类</td>
+</tr>
+</tbody></table>
+<h2 id="例子：-1"><a href="#例子：-1" class="headerlink" title="例子："></a>例子：</h2><p>例子1：将跳过当前项目所有模块中的的测试用例的执行</p>
+<pre><code class="shell">mvn clean install -DskipTests
+</code></pre>
+<p>例子2：跳过当前项目所有模块中的的测试用例的执行，并且不会编译测试用例的类</p>
+<pre><code class="shell">mvn clean install -Dmaven.test.skip=true
+</code></pre>
+<p>在IntelliJ IDEA中跳过测试，作用等同于<code>-DskipTests</code>参数</p>
+<img src="/2022/09/12/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%B8%80%EF%BC%89%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E7%AF%87/2022-09-12_140947.png" class="" title="idea跳过测试用例">
+
+<p>如需跳过指定模块的测试用例，请参考官方文档 <a target="_blank" rel="noopener" href="https://maven.apache.org/plugins-archives/maven-surefire-plugin-2.12.4/examples/skipping-test.html">Skipping Tests</a></p>
+<h1 id="三、开启离线模式"><a href="#三、开启离线模式" class="headerlink" title="三、开启离线模式"></a>三、开启离线模式</h1><p>默认情况下，maven构建时会定期检查SNAPSHOT版本依赖在远程仓库中的有无更新，如果可以确定没有更新可以添加<code>-o</code>参数，来跳过此检查。参数作用如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-o,–offline</td>
+<td>运行offline模式,不联网进行依赖更新</td>
+</tr>
+</tbody></table>
+<h2 id="例子：-2"><a href="#例子：-2" class="headerlink" title="例子："></a>例子：</h2><p>例子1：开启离线模式</p>
+<pre><code class="shell">mvn clean install -o
+</code></pre>
+<p>在IntelliJ IDEA中开启离线模式，作用等同于<code>-o</code>参数</p>
+<img src="/2022/09/12/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%B8%80%EF%BC%89%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E7%AF%87/2022-09-12_180555.png" class="" title="idea开启离线模式">
+
+
+<h1 id="四、多线程构建"><a href="#四、多线程构建" class="headerlink" title="四、多线程构建"></a>四、多线程构建</h1><p>maven从3.x版本开始支持多线程构建项目，不过需要手动开启。官方宣称大约20-50% 的速度提升，具体还要看项目结构、项目规模等因素。开启多线程构建前，还应评估兼容性，maven核心的功能都是支持多线程的，但是个别第三方maven插件可能不是线程安全的，详情见<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3">Parallel builds in Maven 3</a>。开启多线程的命令参数作用如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-Dmaven.compile.fork&#x3D;true</td>
+<td>开启多线程编译</td>
+</tr>
+<tr>
+<td>-T,–threads <arg></td>
+<td>线程数，<br/>-T 4 是直接指定4线程<br/>-T 1C 表示CPU线程的倍数</td>
+</tr>
+</tbody></table>
+<h2 id="例子：-3"><a href="#例子：-3" class="headerlink" title="例子："></a>例子：</h2><p>例子1：开启四线程进行并发构建</p>
+<pre><code class="shell">mvn clean install -Dmaven.compile.fork=true -T 4
+</code></pre>
+<p>在IntelliJ IDEA中开启多线程构建，作用等同于<code>-Dmaven.compile.fork=true -T 4</code>参数</p>
+<img src="/2022/09/12/maven%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%8A%A0%E9%80%9F%EF%BC%88%E4%B8%80%EF%BC%89%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E7%AF%87/2022-09-12_181509.png" class="" title="idea开启多线程构建">
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 Tom Xin&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Tom Xin
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
