@@ -183,12 +183,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #ffa2c4">SQL优化</a>
+                <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #00a596">SQL优化</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #00bcd4">SQL合并</a>
+                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #03a9f4">SQL合并</a>
             </span>
             
         </span>
@@ -196,7 +196,7 @@
     </div>
     
     <div class="content" v-pre>
-        <p>最近在做数据备份恢复时，数据库有一个限制，就是每小时只能执行几万条SQL语句。为了提高数据恢复效率，最好的办法就是将多个INSERT语句合并。假设我有30000条数据，那么将n个INSERT语句合并成一条执行，n取值为多少时，插入效率最高呢？</p>
+        <p>最近在做数据备份恢复时，数据库有一个限制，就是每小时只能执行几万条SQL语句。为了提高数据恢复效率，最好的办法就是将多个INSERT语句合并。假设我有30000条数据，那么将x个INSERT语句合并成一条执行，x取值为多少时，插入效率最高呢？</p>
 <h1 id="一、准备环境和数据"><a href="#一、准备环境和数据" class="headerlink" title="一、准备环境和数据"></a>一、准备环境和数据</h1><p>数据库：Mysql8.0.33</p>
 <p>建表语句：</p>
 <pre><code class="mysql">-- ----------------------------
@@ -214,8 +214,227 @@ CREATE TABLE `employees`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = Dynamic;
 </code></pre>
 <p>INSERT 语句：</p>
-<p><a href="./%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8FINSERT%E4%BC%98%E5%8C%96/INSERT.sql">INSERT语句</a></p>
+<p><a href="./INSERT.sql">INSERT语句</a></p>
+<p>以下是用来合并SQL的代码，使x分别取值2、3、4、5、6、7、8、9、10、11、12、13、14、15、16、17、18、19、20</p>
+<p>得到20个SQL文件</p>
+<pre><code class="java">package org.example;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.text.StrBuilder;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
+
+/**
+ * 主要功能：将多个insert语句合并成一个
+ * 参考了这个代码 cn.hutool.core.text.csv.CsvParser
+ */
+public class Main &#123;
+
+    public static void main(String[] args) &#123;
+
+        final int x = 2;
+
+        try (BufferedReader reader = FileUtil.getReader(&quot;D://INSERT.sql&quot;, StandardCharsets.UTF_8);
+             BufferedWriter writer = FileUtil.getWriter(&quot;D://INSERT_&quot;+x+&quot;.sql&quot;, StandardCharsets.UTF_8, false)) &#123;
+
+            int n = 0;
+            SqlParser sqlParser = new SqlParser(reader);
+            while (true) &#123;
+                String s = sqlParser.readOneSql();
+                if (s == null || s.isEmpty()) &#123;
+                    break;
+                &#125;
+                if (n &lt; x) &#123;
+                    s = s.replace(&quot;;&quot;, &quot;,&quot;);
+                &#125;
+                if (n &gt; 0) &#123;
+                    s = s.substring(s.indexOf(&quot;VALUES&quot;) + 6);
+                &#125;
+                writer.append(s);
+                if (n == x) &#123;
+                    n = 0;
+                    writer.append(&quot;\n&quot;);
+                    System.out.println(&quot;-&quot;);
+                &#125; else &#123;
+                    n++;
+                &#125;
+            &#125;
+            System.out.println(&quot;完成&quot;);
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+
+    static class SqlParser &#123;
+        private final Reader reader;
+
+        /**
+         * 当前行号
+         */
+        private long lineNo = -1;
+        /**
+         * 前一个特殊分界字符
+         */
+        private int preChar = -1;
+
+        private final Buffer buf = new Buffer(IoUtil.DEFAULT_LARGE_BUFFER_SIZE);
+
+
+        private boolean finished;
+        /**
+         * 当前读取SQL
+         */
+        private final StrBuilder currentField = new StrBuilder(512);
+
+        SqlParser(Reader reader) &#123;
+            this.reader = reader;
+        &#125;
+
+        public String readOneSql() &#123;
+
+            final Buffer buf = this.buf;
+
+            int copyLen = 0; // 拷贝长度
+
+            // int preChar = this.preChar;//前一个特殊分界字符
+
+            final StrBuilder currentField = this.currentField;
+
+            boolean inComment = false;
+
+            while (true) &#123;
+                if (false == buf.hasRemaining()) &#123;
+                    // 此Buffer读取结束，开始读取下一段
+                    if (copyLen &gt; 0) &#123;
+                        buf.appendTo(currentField, copyLen);
+                        // 此处无需mark，read方法会重置mark
+                    &#125;
+                    if (buf.read(this.reader) &lt; 0) &#123;
+                        // CSV读取结束
+                        finished = true;
+
+                        if (currentField.hasContent() || preChar == &#39;;&#39;) &#123;
+                            // 剩余部分作为一个SQL返回
+                            return currentField.toStringAndReset();
+                        &#125;
+                        break;
+                    &#125;
+
+                    // 重置
+                    copyLen = 0;
+                &#125;
+
+                final char c = buf.get();
+
+                if (c == &#39;;&#39;) &#123;
+                    if (copyLen &gt; 0) &#123;
+                        buf.appendTo(currentField, copyLen);
+                    &#125;
+                    buf.mark();
+                    this.preChar = c;
+                    return currentField.append(c).toStringAndReset();
+                &#125; else if (this.preChar == &#39;;&#39; &amp;&amp; (c == &#39;\r&#39; || c == &#39;\n&#39; || c == &#39; &#39;)) &#123;
+                    buf.mark();
+                &#125; else &#123;
+                    copyLen++;
+                    this.preChar = c;
+                &#125;
+
+            &#125;
+
+            return null;
+        &#125;
+
+    &#125;
+
+    private static class Buffer implements Serializable &#123;
+        private static final long serialVersionUID = 1L;
+
+        final char[] buf;
+
+        /**
+         * 标记位置，用于读数据
+         */
+        private int mark;
+        /**
+         * 当前位置
+         */
+        private int position;
+        /**
+         * 读取的数据长度，一般小于buf.length，-1表示无数据
+         */
+        private int limit;
+
+        Buffer(int capacity) &#123;
+            buf = new char[capacity];
+        &#125;
+
+        /**
+         * 是否还有未读数据
+         *
+         * @return 是否还有未读数据
+         */
+        public final boolean hasRemaining() &#123;
+            return position &lt; limit;
+        &#125;
+
+        /**
+         * 读取到缓存&lt;br&gt;
+         * 全量读取，会重置Buffer中所有数据
+         *
+         * @param reader &#123;@link Reader&#125;
+         */
+        int read(Reader reader) &#123;
+            int length;
+            try &#123;
+                length = reader.read(this.buf);
+            &#125; catch (IOException e) &#123;
+                throw new IORuntimeException(e);
+            &#125;
+            this.mark = 0;
+            this.position = 0;
+            this.limit = length;
+            return length;
+        &#125;
+
+        /**
+         * 先获取当前字符，再将当前位置后移一位&lt;br&gt;
+         * 此方法不检查是否到了数组末尾，请自行使用&#123;@link #hasRemaining()&#125;判断。
+         *
+         * @return 当前位置字符
+         * @see #hasRemaining()
+         */
+        char get() &#123;
+            return this.buf[this.position++];
+        &#125;
+
+        /**
+         * 标记位置记为下次读取位置
+         */
+        void mark() &#123;
+            this.mark = this.position;
+        &#125;
+
+        /**
+         * 将数据追加到&#123;@link StrBuilder&#125;，追加结束后需手动调用&#123;@link #mark()&#125; 重置读取位置
+         *
+         * @param builder &#123;@link StrBuilder&#125;
+         * @param length  追加的长度
+         * @see #mark()
+         */
+        void appendTo(StrBuilder builder, int length) &#123;
+            builder.append(this.buf, this.mark, length);
+        &#125;
+    &#125;
+
+&#125;
+</code></pre>
+<h1 id="二、执行结果"><a href="#二、执行结果" class="headerlink" title="二、执行结果"></a>二、执行结果</h1>
     </div>
     
     
