@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>tags | Tom Xin&#39;s Blog</title>
+    <title>解决导出文件中文名乱码 | Tom Xin&#39;s Blog</title>
     <meta name="author" content="Tom Xin" />
     <meta name="description" content="相信光吗？" />
     <meta name="keywords" content="java,sql,develop" />
@@ -36,6 +36,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -149,89 +153,79 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>解决导出文件中文名乱码</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/3/16
+        </span>
         
-        
-        
-        <span>
-            <a href="/tags/maven/" style="background: #00a596">
+        <span class="category">
+            <a href="/categories/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                maven
+                解决方案
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/IDEA/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                IDEA
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BC%96%E7%A0%81/" style="color: #03a9f4">编码</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E4%B9%B1%E7%A0%81/" style="color: #ffa2c4">乱码</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SQL优化
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SQL合并
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E7%BC%96%E7%A0%81/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                编码
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E4%B9%B1%E7%A0%81/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                乱码
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/excel/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                excel
-            </a>
-        </span>
-        
         
     </div>
+    
+    <div class="content" v-pre>
+        <h1 id="一、代码"><a href="#一、代码" class="headerlink" title="一、代码"></a>一、代码</h1><pre><code class="java">        final String userAgent = request.getHeader(&quot;User-agent&quot;);
+        final String referer = request.getHeader(&quot;referer&quot;);
+        UserAgent agent = UserAgentUtil.parse(userAgent);
+        if (StrUtil.contains(referer, &quot;swagger-ui&quot;)
+                || agent == null
+                || &quot;MSIE&quot;.equals(agent.getBrowser().getName())
+                || &quot;MSIE11&quot;.equals(agent.getBrowser().getName())
+                || &quot;Firefox&quot;.equals(agent.getBrowser().getName())
+                || userAgent.toLowerCase().startsWith(&quot;postman&quot;)
+                || userAgent.toLowerCase().endsWith(&quot;hutool&quot;)
+                || userAgent.toLowerCase().startsWith(&quot;apache-httpclient&quot;)) &#123;
+            fileName = URLEncoder.encode(fileName, &quot;UTF-8&quot;);
+        &#125; else &#123;
+            byte[] bytes = fileName.getBytes(StandardCharsets.UTF_8);
+            fileName = new String(bytes, StandardCharsets.ISO_8859_1);
+        &#125;
+        response.setCharacterEncoding(&quot;UTF-8&quot;);
+        response.setContentType(contentType);
+        response.setHeader(&quot;Content-disposition&quot;,
+                String.format(&quot;attachment;filename=\&quot;%s\&quot;; filename*=utf-8&#39;zh_cn&#39;%s&quot;, fileName, fileName)
+        );
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -263,6 +257,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
