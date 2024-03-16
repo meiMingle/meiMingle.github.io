@@ -188,7 +188,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #00a596">SQL合并</a>
+                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #ff7d73">SQL合并</a>
             </span>
             
         </span>
@@ -236,37 +236,74 @@ public class Main &#123;
 
     public static void main(String[] args) &#123;
 
-        final int x = 2;
+        // x个insert语句合并为一个
+        final int x = 50;
 
-        try (BufferedReader reader = FileUtil.getReader(&quot;D://INSERT.sql&quot;, StandardCharsets.UTF_8);
-             BufferedWriter writer = FileUtil.getWriter(&quot;D://INSERT_&quot;+x+&quot;.sql&quot;, StandardCharsets.UTF_8, false)) &#123;
+        try (// 输入文件是可以是包含非Insert语句的混合文件，例如由Navicat、Dbeaver等软件的转储的SQL文件（包含结构和数据）
+             BufferedReader reader = FileUtil.getReader(&quot;D://mysqlintellij.sql&quot;, StandardCharsets.UTF_8);
+             BufferedWriter writer = FileUtil.getWriter(&quot;D://mysqlintellij_.sql&quot;, StandardCharsets.UTF_8, false)) &#123;
 
             int n = 0;
             SqlParser sqlParser = new SqlParser(reader);
+            // 上一个select语句的关键部分
+            String preInsertStatementKey = null;
+            String preSql = null;
+            boolean preSqlIsInsert = false;
+
             while (true) &#123;
                 String s = sqlParser.readOneSql();
-                if (s == null || s.isEmpty()) &#123;
+                if ((s == null || s.isEmpty()) &amp;&amp; (preSql == null || preSql.isEmpty())) &#123;
                     break;
                 &#125;
-                if (n &lt; x) &#123;
-                    s = s.replace(&quot;;&quot;, &quot;,&quot;);
-                &#125;
-                if (n &gt; 0) &#123;
-                    s = s.substring(s.indexOf(&quot;VALUES&quot;) + 6);
-                &#125;
-                writer.append(s);
-                if (n == x) &#123;
-                    n = 0;
-                    writer.append(&quot;\n&quot;);
-                    System.out.println(&quot;-&quot;);
+                // 判断当前sql是不是insert语句
+                boolean isInsertSql = s != null &amp;&amp; !s.isEmpty() &amp;&amp; s.toLowerCase().contains(&quot;insert&quot;);
+                if (isInsertSql) &#123;
+                    String insertStatementKey = s.substring(s.toLowerCase().indexOf(&quot;insert&quot;), s.toLowerCase().indexOf(&quot;values&quot;) + 6);
+                    if (preSqlIsInsert) &#123;
+
+                        boolean sameInsert = insertStatementKey.equals(preInsertStatementKey);
+                        if (n &lt; x - 1 &amp;&amp; sameInsert) &#123;
+                            preSql = preSql.replace(&quot;;&quot;, &quot;,&quot;);
+                        &#125;
+
+                        if (n &gt; 0) &#123;
+                            preSql = preSql.substring(preSql.indexOf(&quot;VALUES&quot;) + 6);
+                        &#125;
+
+                        writer.append(preSql);
+                        if (n == x - 1 || !sameInsert) &#123;
+                            n = 0;
+                            writer.append(&quot;\n&quot;);
+                        &#125; else &#123;
+                            n++;
+                        &#125;
+                        // System.out.println(n);
+                    &#125; else &#123;
+                        writer.append(preSql).append(&quot;\n&quot;);
+                    &#125;
+                    preSqlIsInsert = true;
+                    preInsertStatementKey = insertStatementKey;
                 &#125; else &#123;
-                    n++;
+
+                    if (preSqlIsInsert) &#123;
+                        if (n &gt; 0) &#123;
+                            preSql = preSql.substring(preSql.indexOf(&quot;VALUES&quot;) + 6);
+                        &#125;
+                        writer.append(preSql).append(&quot;\n&quot;);
+                        n = 0;
+                    &#125; else if (preSql != null) &#123;
+                        writer.append(preSql).append(&quot;\n&quot;);
+                    &#125;
                 &#125;
+                preSql = s;
+
             &#125;
             System.out.println(&quot;完成&quot;);
         &#125; catch (Exception e) &#123;
             e.printStackTrace();
         &#125;
+
+
     &#125;
 
 
@@ -308,7 +345,7 @@ public class Main &#123;
             boolean inComment = false;
 
             while (true) &#123;
-                if (false == buf.hasRemaining()) &#123;
+                if (!buf.hasRemaining()) &#123;
                     // 此Buffer读取结束，开始读取下一段
                     if (copyLen &gt; 0) &#123;
                         buf.appendTo(currentField, copyLen);
