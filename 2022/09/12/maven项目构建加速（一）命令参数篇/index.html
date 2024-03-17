@@ -42,6 +42,10 @@
 
 
 
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
 
 
 
@@ -183,7 +187,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/maven/" style="color: #00a596">maven</a>
+                <a href="/tags/maven/" style="color: #00bcd4">maven</a>
             </span>
             
         </span>
@@ -298,6 +302,10 @@
     
     
     
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
     
     
 </div>
@@ -333,6 +341,25 @@
     
     
 
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://waline-1-v1953359.deta.app",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://s4.zstatic.net/npm/@waline/emojis@1.2.0/weibo,https://s4.zstatic.net/npm/@waline/emojis@1.2.0/alus,https://s4.zstatic.net/npm/@waline/emojis@1.2.0/bilibili,https://s4.zstatic.net/npm/@waline/emojis@1.2.0/qq,https://s4.zstatic.net/npm/@waline/emojis@1.2.0/tieba,https://s4.zstatic.net/npm/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+        locale: "zh-CN",
+        
+    });
+</script>
 
 
 
