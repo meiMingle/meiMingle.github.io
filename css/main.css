@@ -973,3 +973,16 @@ ol li {
         padding-left: 20px;
     }
 }
+/*背景图*/
+/*#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://s2.hdslb.com/bfs/article/f1ec0234e1628550dc045bf2cf9d045c1352440272.png@1e_1c.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: -1;
+}*/
