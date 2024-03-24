@@ -198,17 +198,17 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="color: #00bcd4">富文本</a>
+                <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="color: #ff7d73">富文本</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/WPS/" style="color: #ff7d73">WPS</a>
+                <a href="/tags/WPS/" style="color: #03a9f4">WPS</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/POI/" style="color: #03a9f4">POI</a>
+                <a href="/tags/POI/" style="color: #00bcd4">POI</a>
             </span>
             
         </span>
@@ -217,7 +217,8 @@
     
     <div class="content" v-pre>
         <h1 id="一、导致不兼容的原因"><a href="#一、导致不兼容的原因" class="headerlink" title="一、导致不兼容的原因"></a>一、导致不兼容的原因</h1><p>POI生成的加粗的节点<code>&lt;b val=&quot;true&quot;&gt;&lt;/b&gt;</code>,在较低版本的wps中无法正确识别展示，可以正确识别展示的节点<code>&lt;b/&gt;</code></p>
-<h1 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h1><pre><code class="java">package com.richtext;
+<h1 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h1><p>创建富文本时用WPSXSSFRichTextString替代XSSFRichTextString</p>
+<pre><code class="java">package com.richtext;
 
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFFont;
