@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: SQL优化 | Tom Xin&#39;s Blog</title>
+    <title>一些可能有用的脚本 | Tom Xin&#39;s Blog</title>
     <meta name="author" content="Tom Xin" />
     <meta name="description" content="相信光吗？" />
     <meta name="keywords" content="java,sql,develop" />
@@ -46,6 +46,17 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+<script src="https://s4.zstatic.net/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+<script src="/js/lib/crypto.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -160,143 +171,67 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/IDEA/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                IDEA
-            </a>
+            <div class="article">
+    <div>
+        <h1>一些可能有用的脚本</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/3/22
         </span>
         
-        
-        
-        <span>
-            <a href="/tags/maven/" style="background: #ff7d73">
+        <span class="category">
+            <a href="/categories/%E8%84%9A%E6%9C%AC/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                maven
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E8%84%9A%E6%9C%AC/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
                 脚本
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/excel/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                excel
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%84%9A%E6%9C%AC/" style="color: #ff7d73">脚本</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SQL优化
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SQL合并
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E7%BC%96%E7%A0%81/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                编码
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E4%B9%B1%E7%A0%81/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                乱码
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2024/3/13</div>
-            <a href="/2024/03/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8FINSERT%E4%BC%98%E5%8C%96/">
-                <h3>数据库批量Insert优化</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/SQL%E4%BC%98%E5%8C%96/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        SQL优化
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #00a596">SQL优化</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #00bcd4">SQL合并</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    
+    <input
+        id="crypto"
+        :class="['input', cryptoStatus]"
+        :disabled="cryptoStatus === 'success'"
+        ref="crypto"
+        placeholder="文章被加密，请输入密码"
+        data-encrypted="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"
+        data-shasum="a5998c739aa247db6740e3dafba97c1cb64b79c40e531d4d993779b35fd0a85d"
+        v-model="crypto"
+    />
+    <transition name="fade">
+        <div class="content" ref="content" v-show="cryptoStatus === 'success'"></div>
+    </transition>
+    
+    
+    
+    
+    
+    <div id="comment">
+        <div id="waline-container"></div>
     </div>
+    
+    
     
 </div>
 
@@ -328,6 +263,31 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://waline-1-v1953359.deta.app",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://npm.elemecdn.com/@waline/emojis@1.2.0/weibo,https://npm.elemecdn.com/@waline/emojis@1.2.0/bilibili,https://npm.elemecdn.com/@waline/emojis@1.2.0/qq,https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+        locale: "zh-CN",
+        
+    });
+</script>
+
+
+
     
     <!-- 流星背景特效 -->
     <canvas

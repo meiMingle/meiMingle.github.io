@@ -198,12 +198,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #00a596">SQL优化</a>
+                <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #00bcd4">SQL优化</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #ff7d73">SQL合并</a>
+                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #ffa2c4">SQL合并</a>
             </span>
             
         </span>
@@ -211,27 +211,8 @@
     </div>
     
     <div class="content" v-pre>
-        <p>最近在做数据备份恢复时，数据库有一个限制，就是每小时只能执行几万条SQL语句。为了提高效率，将多个INSERT语句合并。假设我有30000条数据，那么将x个INSERT语句合并成一条执行，x取值为多少时，插入效率最高呢？</p>
-<h1 id="一、准备环境和数据"><a href="#一、准备环境和数据" class="headerlink" title="一、准备环境和数据"></a>一、准备环境和数据</h1><p>数据库：Mysql8.0.33</p>
-<p>建表语句：</p>
-<pre><code class="mysql">-- ----------------------------
--- Table structure for employees
--- ----------------------------
-DROP TABLE IF EXISTS `employees`;
-CREATE TABLE `employees`  (
-  `emp_no` int(11) NOT NULL,
-  `birth_date` date NOT NULL,
-  `first_name` varchar(14) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `last_name` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `gender` enum(&#39;M&#39;,&#39;F&#39;) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `hire_date` date NOT NULL,
-  PRIMARY KEY (`emp_no`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = Dynamic;
-</code></pre>
-<p>INSERT 语句：</p>
-<p><a href="./INSERT.sql">INSERT语句</a></p>
-<p>以下是用来合并SQL的代码，使x分别取值<br>1、2、3、4、5、6、7、8、9、10、11、12、13、14、15、16、17、18、19、20、<br>21、22、23、24、25、26、27、28、29、30、31、32、33、34、35、36、37、38、39、40</p>
-<p>得到40个SQL文件</p>
+        <h1 id="一、合并多条Insert语句"><a href="#一、合并多条Insert语句" class="headerlink" title="一、合并多条Insert语句"></a>一、合并多条Insert语句</h1><p>提高批量插入语句执行效率的办法之一就是将多条INSERT合并为一条，以下代码支把从Navicat导出的转储文件（结构和数据）自动合并INSERT语句，自动忽略非INSERT语句。</p>
+<p>TODO：注释过滤</p>
 <pre><code class="java">package org.example;
 
 import cn.hutool.core.io.FileUtil;
@@ -486,40 +467,6 @@ public class Main &#123;
 
 &#125;
 </code></pre>
-<h1 id="二、执行结果"><a href="#二、执行结果" class="headerlink" title="二、执行结果"></a>二、执行结果</h1><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
 
     </div>
     
