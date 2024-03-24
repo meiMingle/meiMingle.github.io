@@ -198,7 +198,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/IDEA/" style="color: #00bcd4">IDEA</a>
+                <a href="/tags/IDEA/" style="color: #ff7d73">IDEA</a>
             </span>
             
         </span>
@@ -206,7 +206,7 @@
     </div>
     
     <div class="content" v-pre>
-        <p>整理一些开发中常用的配置，基于idea2022.2.3，版本过低的idea配置可能与此有差异</p>
+        <p>整理一些开发中常用的配置，基于idea2023.3.6，版本过低的idea配置可能与此有差异</p>
 <h1 id="一、idea启动参数"><a href="#一、idea启动参数" class="headerlink" title="一、idea启动参数"></a>一、idea启动参数</h1><p>在idea安装目录下的\bin\idea64.exe.vmoptions文件中，添加以下配置，绝大多数情况下能够避免控制台日志乱码</p>
 <pre><code class="text">-Dfile.encoding=UTF-8
 </code></pre>
@@ -218,12 +218,18 @@
 <h1 id="二、idea编码配置"><a href="#二、idea编码配置" class="headerlink" title="二、idea编码配置"></a>二、idea编码配置</h1><p>打开<code>File-》Settings-》Editor-》File Encoding</code>，按照下图所示修改配置</p>
 <img src="/2022/11/11/IntelliJ-IDEA%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/image-20221111135532195.png" class="" title="image-20221111135532195">
 
-<h1 id="三、idea编辑风格配置"><a href="#三、idea编辑风格配置" class="headerlink" title="三、idea编辑风格配置"></a>三、idea编辑风格配置</h1><p>打开<code>File-》Settings-》Editor-》Code Style-》Java-》Code Generation</code>，按照下图所示修改配置。</p>
+<h1 id="三、idea编辑风格配置"><a href="#三、idea编辑风格配置" class="headerlink" title="三、idea编辑风格配置"></a>三、idea编辑风格配置</h1><p>打开<code>File-》Settings-》Editor-》Code Style-》Java-》Code Generation</code>，按照下图所示修改配置。同理修改Kotlin的配置</p>
 <p>1.使行注释与当前代码缩进对齐</p>
 <p>2.在行注释起始位置插入一个空格</p>
 <p>3.使块注释与当前代码缩进对齐</p>
 <img src="/2022/11/11/IntelliJ-IDEA%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/image-20221111153317043.png" class="" title="image-20221111153317043">
 
+<img src="/2022/11/11/IntelliJ-IDEA%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/image-20240324183837865.png" class="" title="image-20240324183837865">
+
+<h1 id="四、修改Registry"><a href="#四、修改Registry" class="headerlink" title="四、修改Registry"></a>四、修改Registry</h1><p>快捷键Ctrl+Shift+A，输入Registry，打开idea的注册表。</p>
+<p>勾选<code>decompiler.dump.original.lines</code>，使反编译的代码显示行号，</p>
+<p>勾选<code>ide.browser.jcef.gpu.disable</code>,禁用gpu加速，解决Markdown文档无法渲染出来或者渲染慢的问题。</p>
+<img src="/2022/11/11/IntelliJ-IDEA%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/image-20240324191204897.png" class="" title="image-20240324191204897">
 
     </div>
     
