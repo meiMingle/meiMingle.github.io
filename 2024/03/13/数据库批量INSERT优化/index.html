@@ -198,12 +198,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #00a596">SQL优化</a>
+                <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="color: #ffa2c4">SQL优化</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #ff7d73">SQL合并</a>
+                <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="color: #00a596">SQL合并</a>
             </span>
             
         </span>
@@ -211,8 +211,7 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="一、合并多条Insert语句"><a href="#一、合并多条Insert语句" class="headerlink" title="一、合并多条Insert语句"></a>一、合并多条Insert语句</h1><p>提高批量插入语句执行效率的办法之一就是将多条INSERT合并为一条，以下代码支把从Navicat导出的转储文件（结构和数据）自动合并INSERT语句，自动忽略非INSERT语句。</p>
-<p>TODO：注释过滤</p>
+        <h1 id="一、合并多条Insert语句"><a href="#一、合并多条Insert语句" class="headerlink" title="一、合并多条Insert语句"></a>一、合并多条Insert语句</h1><p>提高批量插入语句执行效率的办法之一就是将多条INSERT合并为一条，以下代码可以自动合并INSERT语句，自动忽略非INSERT语句，可以设置是否过滤注释。</p>
 <pre><code class="java">package org.example;
 
 import cn.hutool.core.io.FileUtil;
@@ -234,27 +233,28 @@ public class Main &#123;
 
         // x个insert语句合并为一个
         final int x = 50;
+        // 移除注释
+        final boolean rmComments = true;
 
         try (// 输入文件是可以是包含非Insert语句的混合文件，例如由Navicat、Dbeaver等软件的转储的SQL文件（包含结构和数据）
              BufferedReader reader = FileUtil.getReader(&quot;D://mysqlintellij.sql&quot;, StandardCharsets.UTF_8);
              BufferedWriter writer = FileUtil.getWriter(&quot;D://mysqlintellij_.sql&quot;, StandardCharsets.UTF_8, false)) &#123;
 
             int n = 0;
-            SqlParser sqlParser = new SqlParser(reader);
+            SqlParser sqlParser = new SqlParser(reader, rmComments);
             // 上一个select语句的关键部分
             String preInsertStatementKey = null;
             String preSql = null;
             boolean preSqlIsInsert = false;
 
-            while (true) &#123;
-                String s = sqlParser.readOneSql();
-                if ((s == null || s.isEmpty()) &amp;&amp; (preSql == null || preSql.isEmpty())) &#123;
-                    break;
-                &#125;
+            while (sqlParser.hasNext()) &#123;
+                SqlParser.SQLPart sqlPart = sqlParser.readOneSql();
+                String sql = sqlPart.getSql();
+                // System.out.println(sqlPart.getSqlNo());
                 // 判断当前sql是不是insert语句
-                boolean isInsertSql = s != null &amp;&amp; !s.isEmpty() &amp;&amp; s.toLowerCase().contains(&quot;insert&quot;);
+                boolean isInsertSql = sql != null &amp;&amp; !sql.isEmpty() &amp;&amp; sql.toLowerCase().contains(&quot;insert&quot;);
                 if (isInsertSql) &#123;
-                    String insertStatementKey = s.substring(s.toLowerCase().indexOf(&quot;insert&quot;), s.toLowerCase().indexOf(&quot;values&quot;) + 6);
+                    String insertStatementKey = sql.substring(sql.toLowerCase().indexOf(&quot;insert&quot;), sql.toLowerCase().indexOf(&quot;values&quot;) + 6);
                     if (preSqlIsInsert) &#123;
 
                         boolean sameInsert = insertStatementKey.equals(preInsertStatementKey);
@@ -291,7 +291,7 @@ public class Main &#123;
                         writer.append(preSql).append(&quot;\n&quot;);
                     &#125;
                 &#125;
-                preSql = s;
+                preSql = sql;
 
             &#125;
             System.out.println(&quot;完成&quot;);
@@ -307,16 +307,25 @@ public class Main &#123;
         private final Reader reader;
 
         /**
-         * 当前行号
+         * 当前sql编号
          */
-        private long lineNo = -1;
+        private long sqlNo = -1;
         /**
          * 前一个特殊分界字符
          */
         private int preChar = -1;
+        private int prePreChar = -1;
 
         private final Buffer buf = new Buffer(IoUtil.DEFAULT_LARGE_BUFFER_SIZE);
-
+        private final boolean rmComments;
+        /**
+         * 在多行注释中
+         */
+        boolean inMComment = false;
+        /**
+         * 在单行注释中
+         */
+        boolean inLComment = false;
 
         private boolean finished;
         /**
@@ -324,21 +333,48 @@ public class Main &#123;
          */
         private final StrBuilder currentField = new StrBuilder(512);
 
-        SqlParser(Reader reader) &#123;
+        SqlParser(Reader reader, boolean rmComments) &#123;
             this.reader = reader;
+            this.rmComments = rmComments;
         &#125;
 
-        public String readOneSql() &#123;
+        public boolean hasNext() &#123;
+            return !finished;
+        &#125;
+
+        static class SQLPart &#123;
+            private long sqlNo;
+            private String sql;
+
+            public SQLPart(long sqlNo, String sql) &#123;
+                this.sqlNo = sqlNo;
+                this.sql = sql;
+            &#125;
+
+            public long getSqlNo() &#123;
+                return sqlNo;
+            &#125;
+
+            public void setSqlNo(long sqlNo) &#123;
+                this.sqlNo = sqlNo;
+            &#125;
+
+            public String getSql() &#123;
+                return sql;
+            &#125;
+
+            public void setSql(String sql) &#123;
+                this.sql = sql;
+            &#125;
+        &#125;
+
+        public SQLPart readOneSql() &#123;
 
             final Buffer buf = this.buf;
 
             int copyLen = 0; // 拷贝长度
 
-            // int preChar = this.preChar;//前一个特殊分界字符
-
             final StrBuilder currentField = this.currentField;
-
-            boolean inComment = false;
 
             while (true) &#123;
                 if (!buf.hasRemaining()) &#123;
@@ -352,8 +388,9 @@ public class Main &#123;
                         finished = true;
 
                         if (currentField.hasContent() || preChar == &#39;;&#39;) &#123;
+
                             // 剩余部分作为一个SQL返回
-                            return currentField.toStringAndReset();
+                            return new SQLPart(++sqlNo, currentField.toStringAndReset());
                         &#125;
                         break;
                     &#125;
@@ -364,22 +401,59 @@ public class Main &#123;
 
                 final char c = buf.get();
 
+
+                if (rmComments) &#123;
+                    // 多行注释
+                    if (c == &#39;*&#39; &amp;&amp; preChar == &#39;/&#39;) &#123;
+                        copyLen = 0;
+                        inMComment = true;
+                    &#125;
+                    if (inMComment) &#123;
+                        if (c == &#39;/&#39; &amp;&amp; preChar == &#39;*&#39;) &#123;
+                            inMComment = false;
+                        &#125;
+                        buf.mark();
+                        prePreChar = preChar;
+                        preChar = c;
+                        continue;
+                    &#125;
+
+                    // 单行注释
+                    if (c == &#39; &#39; &amp;&amp; preChar == &#39;-&#39; &amp;&amp; prePreChar == &#39;-&#39;) &#123;
+                        copyLen = 0;
+                        inLComment = true;
+                    &#125;
+                    if (inLComment) &#123;
+                        if (c == &#39;\n&#39; || c == &#39;\r&#39;) &#123;
+                            inLComment = false;
+                        &#125;
+                        buf.mark();
+                        prePreChar = preChar;
+                        preChar = c;
+                        continue;
+                    &#125;
+                &#125;
+
                 if (c == &#39;;&#39;) &#123;
                     if (copyLen &gt; 0) &#123;
                         buf.appendTo(currentField, copyLen);
                     &#125;
                     buf.mark();
-                    this.preChar = c;
-                    return currentField.append(c).toStringAndReset();
+                    prePreChar = preChar;
+                    preChar = c;
+
+                    return new SQLPart(++sqlNo, currentField.append(c).toStringAndReset());
                 &#125; else if (this.preChar == &#39;;&#39; &amp;&amp; (c == &#39;\r&#39; || c == &#39;\n&#39; || c == &#39; &#39;)) &#123;
                     buf.mark();
                 &#125; else &#123;
                     copyLen++;
-                    this.preChar = c;
+                    prePreChar = preChar;
+                    preChar = c;
                 &#125;
 
             &#125;
 
+            sqlNo++;
             return null;
         &#125;
 
