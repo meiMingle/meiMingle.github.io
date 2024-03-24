@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Excel导入导出方案汇总 | Tom Xin&#39;s Blog</title>
+    <title>解决POI与较旧版本的WPS的富文本样式兼容问题 | Tom Xin&#39;s Blog</title>
     <meta name="author" content="Tom Xin" />
     <meta name="description" content="相信光吗？" />
     <meta name="keywords" content="java,sql,develop" />
@@ -170,22 +170,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Excel导入导出方案汇总</h1>
+        <h1>解决POI与较旧版本的WPS的富文本样式兼容问题</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/3/16
+            2024/3/24
         </span>
         
         <span class="category">
-            <a href="/categories/%E6%80%BB%E7%BB%93/">
+            <a href="/categories/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                总结
+                解决方案
             </a>
         </span>
         
@@ -198,7 +198,17 @@
             
             <span class="tag">
                 
-                <a href="/tags/excel/" style="color: #03a9f4">excel</a>
+                <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="color: #00bcd4">富文本</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/WPS/" style="color: #ff7d73">WPS</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/POI/" style="color: #03a9f4">POI</a>
             </span>
             
         </span>
@@ -206,113 +216,161 @@
     </div>
     
     <div class="content" v-pre>
-        <table  style="border: 1px solid black;">
-    <tr bgcolor="gray" style="font-size:15.0pt;color:black;" > 
-        <th>分类</th>
-        <th>库名</th> <!-- 表头，用于居中显示；合并 9 行为 CBW 数据封包 -->
-        <th>优点点</th>
-        <th>缺点</th>
-        <th>备注</th>
-    </tr>
-     <tr> <!-- 一 -->
-        <td rowspan="12"  style="font-size:12.0pt;color:black;font-weight:bold;border-bottom: 1px solid black;"  > POI系 </td>
-        <td> POI </td>
-        <td>功能丰富,是很多其他库的基础</td>
-        <td>使用不当容易导致OOM</td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 二 -->
-        <td> easyexcel </td>
-        <td>Alibaba出品，基于POI封装，性能有不错的提升，支持通过注解自动映射实体</td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 三 -->
-        <td> async-excel </td>
-        <td>基于easyexcel的异步处理</td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 四 -->
-        <td> excel-streaming-reader </td>
-        <td> 流式读取excel </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 五 -->
-        <td> poi-shared-strings </td>
-        <td> 高效的共享字符串实现 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 六 -->
-        <td> jxls </td>
-        <td> 主要支持模板导入导出 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 七 -->
-        <td> excel-eventpoi </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 八 -->
-        <td> reactor-excel </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 九 -->
-        <td> xylophone </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 十 -->
-        <td> Excel4J </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 十一 -->
-        <td> iexcel </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 十二 -->
-        <td style="border-bottom: 1px solid black;"> zeroexcel </td>
-        <td style="border-bottom: 1px solid black;"> 优 </td> 
-        <td style="border-bottom: 1px solid black;"> 缺 </td>
-        <td style="border-bottom: 1px solid black;"> 其他 </td>
-    </tr>
-    <tr> <!-- 一 -->
-        <td rowspan="4" style="font-size:12.0pt;color:black;font-weight:bold"> 非POI系 </td> 
-        <td> fastexcel </td>
-        <td> 高效的读、写 </td>
-        <td> 读写分离 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 二 -->
-        <td> eec </td>
-        <td> 高效读写，性能可能高于fastexcel </td>
-        <td> 目前可能还不完全稳定 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 三 -->
-        <td> doc4j </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 四 -->
-        <td> DsExcel </td>
-        <td> 功能丰富 </td>
-        <td> 商业 </td>
-        <td> 其他 </td>
-    </tr>
-</table>
+        <h1 id="一、导致不兼容的原因"><a href="#一、导致不兼容的原因" class="headerlink" title="一、导致不兼容的原因"></a>一、导致不兼容的原因</h1><p>POI生成的加粗的节点<code>&lt;b val=&quot;true&quot;&gt;&lt;/b&gt;</code>,在较低版本的wps中无法正确识别展示，可以正确识别展示的节点<code>&lt;b/&gt;</code></p>
+<h1 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h1><pre><code class="java">package com.richtext;
+
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.*;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.TreeMap;
+
+/**
+ * &lt;p&gt;用于解决POI导出的Excel中富文本加粗不生效的问题，&lt;/p&gt;
+ * &lt;p&gt;此问题是由于较低版本的WPS不能正常识别 &amp;lt;b val=&quot;true&quot;/&amp;gt;&lt;/p&gt;
+ */
+public class WPSXSSFRichTextString extends XSSFRichTextString &#123;
+    public WPSXSSFRichTextString() &#123;
+        super();
+    &#125;
+
+    public WPSXSSFRichTextString(String str) &#123;
+        super(str);
+    &#125;
+
+    public WPSXSSFRichTextString(CTRst st) &#123;
+        super(st);
+    &#125;
+
+    static MethodHandles.Lookup lookup = MethodHandles.lookup();
+    private static Field stFeild;
+    private static MethodHandle getFormatMapMethodHandle;
+    // private static Method getFormatMapMethod;
+    private static MethodHandle applyFontMethodHandle;
+    // private static Method applyFontMethod;
+    private static MethodHandle buildCTRstMethodHandle;
+    // private static Method buildCTRstMethod;
+
+    static &#123;
+        try &#123;
+            stFeild = XSSFRichTextString.class.getDeclaredField(&quot;st&quot;);
+            stFeild.setAccessible(true);
+
+            /* MethodType rtype0 = MethodType.methodType(TreeMap.class);
+            getFormatMapMethodHandle = lookup.findVirtual(XSSFRichTextString.class, &quot;getFormatMap&quot;, rtype0); */
+            Method getFormatMapMethod = XSSFRichTextString.class.getDeclaredMethod(&quot;getFormatMap&quot;, CTRst.class);
+            getFormatMapMethod.setAccessible(true);
+            getFormatMapMethodHandle = lookup.unreflect(getFormatMapMethod);
+            /* MethodType rtype1 = MethodType.methodType(void.class);
+            applyFontMethodHandle = lookup.findVirtual(XSSFRichTextString.class, &quot;applyFont&quot;, rtype1); */
+            Method applyFontMethod = XSSFRichTextString.class.getDeclaredMethod(&quot;applyFont&quot;, TreeMap.class,int.class,int.class,CTRPrElt.class);
+            applyFontMethod.setAccessible(true);
+            applyFontMethodHandle = lookup.unreflect(applyFontMethod);
+            /* MethodType rtype2 = MethodType.methodType(CTRst.class);
+            buildCTRstMethodHandle = lookup.findVirtual(XSSFRichTextString.class, &quot;buildCTRst&quot;, rtype2); */
+            Method buildCTRstMethod = XSSFRichTextString.class.getDeclaredMethod(&quot;buildCTRst&quot;, String.class, TreeMap.class);
+            buildCTRstMethod.setAccessible(true);
+            buildCTRstMethodHandle = lookup.unreflect(buildCTRstMethod);
+
+        &#125; catch (NoSuchFieldException | NoSuchMethodException | IllegalAccessException e) &#123;
+            throw new RuntimeException(e);
+        &#125;
+    &#125;
+
+
+    @Override
+    public void append(String text, XSSFFont font) &#123;
+        try &#123;
+            MethodHandle stGetter = lookup.unreflectGetter(stFeild);
+            CTRst st = (CTRst) stGetter.invoke(this);
+            if (st.sizeOfRArray() == 0 &amp;&amp; st.isSetT()) &#123;
+                // convert &lt;t&gt;string&lt;/t&gt; into a text run: &lt;r&gt;&lt;t&gt;string&lt;/t&gt;&lt;/r&gt;
+                CTRElt lt = st.addNewR();
+                lt.setT(st.getT());
+                preserveSpaces(lt.xgetT());
+                st.unsetT();
+            &#125;
+            CTRElt lt = st.addNewR();
+            lt.setT(text);
+            preserveSpaces(lt.xgetT());
+
+            if (font != null) &#123;
+                CTRPrElt pr = lt.addNewRPr();
+                this.setRunAttributes(font.getCTFont(), pr);
+            &#125;
+        &#125; catch (Throwable e) &#123;
+            throw new RuntimeException(e);
+        &#125;
+    &#125;
+
+    @Override
+    public void applyFont(int startIndex, int endIndex, Font font) &#123;
+        try &#123;
+            MethodHandle stGetter = lookup.unreflectGetter(stFeild);
+            CTRst st = (CTRst) stGetter.invoke(this);
+            if (startIndex &gt; endIndex)
+                throw new IllegalArgumentException(&quot;Start index must be less than end index, but had &quot; + startIndex + &quot; and &quot; + endIndex);
+            if (startIndex &lt; 0 || endIndex &gt; length())
+                throw new IllegalArgumentException(&quot;Start and end index not in range, but had &quot; + startIndex + &quot; and &quot; + endIndex);
+
+            if (startIndex == endIndex)
+                return;
+
+            if (st.sizeOfRArray() == 0 &amp;&amp; st.isSetT()) &#123;
+                // convert &lt;t&gt;string&lt;/t&gt; into a text run: &lt;r&gt;&lt;t&gt;string&lt;/t&gt;&lt;/r&gt;
+                st.addNewR().setT(st.getT());
+                st.unsetT();
+            &#125;
+
+            String text = getString();
+            XSSFFont xssfFont = (XSSFFont) font;
+
+            TreeMap&lt;Integer, CTRPrElt&gt; formats = (TreeMap&lt;Integer, CTRPrElt&gt;) getFormatMapMethodHandle.invokeWithArguments(this,st);
+            CTRPrElt fmt = CTRPrElt.Factory.newInstance();
+            this.setRunAttributes(xssfFont.getCTFont(), fmt);
+            applyFontMethodHandle.invoke(this,formats, startIndex, endIndex, fmt);
+
+            CTRst newSt = (CTRst) (buildCTRstMethodHandle.invoke(this,text, formats));
+            st.set(newSt);
+        &#125; catch (Throwable e) &#123;
+            throw new RuntimeException(e);
+        &#125;
+    &#125;
+
+    private void setRunAttributes(CTFont ctFont, CTRPrElt pr) &#123;
+        if (ctFont.sizeOfBArray() &gt; 0 &amp;&amp; ctFont.getBArray(0).getVal()) pr.addNewB();
+        if (ctFont.sizeOfUArray() &gt; 0) pr.addNewU().setVal(ctFont.getUArray(0).getVal());
+        if (ctFont.sizeOfIArray() &gt; 0 &amp;&amp; ctFont.getIArray(0).getVal()) pr.addNewI();
+        if (ctFont.sizeOfColorArray() &gt; 0) &#123;
+            CTColor c1 = ctFont.getColorArray(0);
+            CTColor c2 = pr.addNewColor();
+            if (c1.isSetAuto()) c2.setAuto(c1.getAuto());
+            if (c1.isSetIndexed()) c2.setIndexed(c1.getIndexed());
+            if (c1.isSetRgb()) c2.setRgb(c1.getRgb());
+            if (c1.isSetTheme()) c2.setTheme(c1.getTheme());
+            if (c1.isSetTint()) c2.setTint(c1.getTint());
+        &#125;
+        if (ctFont.sizeOfSzArray() &gt; 0) pr.addNewSz().setVal(ctFont.getSzArray(0).getVal());
+        if (ctFont.sizeOfNameArray() &gt; 0) pr.addNewRFont().setVal(ctFont.getNameArray(0).getVal());
+        if (ctFont.sizeOfFamilyArray() &gt; 0) pr.addNewFamily().setVal(ctFont.getFamilyArray(0).getVal());
+        if (ctFont.sizeOfSchemeArray() &gt; 0) pr.addNewScheme().setVal(ctFont.getSchemeArray(0).getVal());
+        if (ctFont.sizeOfCharsetArray() &gt; 0) pr.addNewCharset().setVal(ctFont.getCharsetArray(0).getVal());
+
+        if (ctFont.sizeOfCondenseArray() &gt; 0 &amp;&amp; ctFont.getCondenseArray(0).getVal()) pr.addNewCondense();
+        if (ctFont.sizeOfExtendArray() &gt; 0 &amp;&amp; ctFont.getExtendArray(0).getVal()) pr.addNewExtend();
+        if (ctFont.sizeOfVertAlignArray() &gt; 0) pr.addNewVertAlign().setVal(ctFont.getVertAlignArray(0).getVal());
+        if (ctFont.sizeOfOutlineArray() &gt; 0 &amp;&amp; ctFont.getOutlineArray(0).getVal()) pr.addNewOutline();
+        if (ctFont.sizeOfShadowArray() &gt; 0 &amp;&amp; ctFont.getShadowArray(0).getVal()) pr.addNewShadow();
+        if (ctFont.sizeOfStrikeArray() &gt; 0 &amp;&amp; ctFont.getStrikeArray(0).getVal()) pr.addNewStrike();
+    &#125;
+&#125;
+</code></pre>
+
     </div>
     
     

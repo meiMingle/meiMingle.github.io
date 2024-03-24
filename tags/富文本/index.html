@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Excel导入导出方案汇总 | Tom Xin&#39;s Blog</title>
+    <title>Tags: 富文本 | Tom Xin&#39;s Blog</title>
     <meta name="author" content="Tom Xin" />
     <meta name="description" content="相信光吗？" />
     <meta name="keywords" content="java,sql,develop" />
@@ -46,14 +46,6 @@
 
 <script src="/js/lib/preview.js"></script>
 
-
-
-
-
-
-<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -168,162 +160,181 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>Excel导入导出方案汇总</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/3/16
-        </span>
+            <div id="archives">
+    
+    <div class="categories-tags">
         
-        <span class="category">
-            <a href="/categories/%E6%80%BB%E7%BB%93/">
+        
+        
+        <span>
+            <a href="/tags/excel/" style="background: #00a596">
                 <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                    <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
-                总结
+                excel
             </a>
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            
-            <span class="tag">
-                
-                <a href="/tags/excel/" style="color: #03a9f4">excel</a>
-            </span>
-            
+        
+        <span>
+            <a href="/tags/IDEA/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                IDEA
+            </a>
         </span>
+        
+        
+        
+        <span>
+            <a href="/tags/maven/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                maven
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E8%84%9A%E6%9C%AC/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                脚本
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                SQL优化
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                SQL合并
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                富文本
+            </a>
+        </span>
+        
+        
+        
+        
+        
+        <span>
+            <a href="/tags/WPS/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                WPS
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/POI/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                POI
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E7%BC%96%E7%A0%81/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                编码
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E4%B9%B1%E7%A0%81/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                乱码
+            </a>
+        </span>
+        
         
     </div>
     
-    <div class="content" v-pre>
-        <table  style="border: 1px solid black;">
-    <tr bgcolor="gray" style="font-size:15.0pt;color:black;" > 
-        <th>分类</th>
-        <th>库名</th> <!-- 表头，用于居中显示；合并 9 行为 CBW 数据封包 -->
-        <th>优点点</th>
-        <th>缺点</th>
-        <th>备注</th>
-    </tr>
-     <tr> <!-- 一 -->
-        <td rowspan="12"  style="font-size:12.0pt;color:black;font-weight:bold;border-bottom: 1px solid black;"  > POI系 </td>
-        <td> POI </td>
-        <td>功能丰富,是很多其他库的基础</td>
-        <td>使用不当容易导致OOM</td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 二 -->
-        <td> easyexcel </td>
-        <td>Alibaba出品，基于POI封装，性能有不错的提升，支持通过注解自动映射实体</td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 三 -->
-        <td> async-excel </td>
-        <td>基于easyexcel的异步处理</td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 四 -->
-        <td> excel-streaming-reader </td>
-        <td> 流式读取excel </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 五 -->
-        <td> poi-shared-strings </td>
-        <td> 高效的共享字符串实现 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 六 -->
-        <td> jxls </td>
-        <td> 主要支持模板导入导出 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 七 -->
-        <td> excel-eventpoi </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 八 -->
-        <td> reactor-excel </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 九 -->
-        <td> xylophone </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 十 -->
-        <td> Excel4J </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 十一 -->
-        <td> iexcel </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 十二 -->
-        <td style="border-bottom: 1px solid black;"> zeroexcel </td>
-        <td style="border-bottom: 1px solid black;"> 优 </td> 
-        <td style="border-bottom: 1px solid black;"> 缺 </td>
-        <td style="border-bottom: 1px solid black;"> 其他 </td>
-    </tr>
-    <tr> <!-- 一 -->
-        <td rowspan="4" style="font-size:12.0pt;color:black;font-weight:bold"> 非POI系 </td> 
-        <td> fastexcel </td>
-        <td> 高效的读、写 </td>
-        <td> 读写分离 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 二 -->
-        <td> eec </td>
-        <td> 高效读写，性能可能高于fastexcel </td>
-        <td> 目前可能还不完全稳定 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 三 -->
-        <td> doc4j </td>
-        <td> 优 </td>
-        <td> 缺 </td>
-        <td> 其他 </td>
-    </tr>
-    <tr> <!-- 四 -->
-        <td> DsExcel </td>
-        <td> 功能丰富 </td>
-        <td> 商业 </td>
-        <td> 其他 </td>
-    </tr>
-</table>
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2024/3/24</div>
+            <a href="/2024/03/24/%E8%A7%A3%E5%86%B3POI%E4%B8%8E%E8%BE%83%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84WPS%E7%9A%84%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
+                <h3>解决POI与较旧版本的WPS的富文本样式兼容问题</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        解决方案
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="color: #00bcd4">富文本</a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/WPS/" style="color: #00a596">WPS</a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/POI/" style="color: #03a9f4">POI</a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
     </div>
-    
-    
-    
-    
-    
-    <div id="comment">
-        <div id="waline-container"></div>
-    </div>
-    
-    
     
 </div>
 
@@ -355,31 +366,6 @@
         
     </div>
     <script src="/js/main.js"></script>
-    
-    
-
-
-<script>
-    Waline.init({
-        el: "#waline-container",
-        serverURL: "https://waline-1-v1953359.deta.app",
-        commentCount: true,
-        pageview: false,
-        emoji: "https://npm.elemecdn.com/@waline/emojis@1.2.0/weibo,https://npm.elemecdn.com/@waline/emojis@1.2.0/bilibili,https://npm.elemecdn.com/@waline/emojis@1.2.0/qq,https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba".split(","),
-        meta: "nick,mail,link".split(","),
-        requiredMeta: "nick".split(","),
-        lang: "zh-CN",
-        wordLimit: 0,
-        pageSize: "10",
-        login: "enable",
-        
-        locale: "zh-CN",
-        
-    });
-</script>
-
-
-
     
     <!-- 流星背景特效 -->
     <canvas
