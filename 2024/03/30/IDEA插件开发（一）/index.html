@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: WPS | Tom Xin&#39;s Blog</title>
+    <title>IDEA插件开发（一） | Tom Xin&#39;s Blog</title>
     <meta name="author" content="Tom Xin" />
     <meta name="description" content="相信光吗？" />
     <meta name="keywords" content="java,sql,develop" />
@@ -46,6 +46,17 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+<script src="https://s4.zstatic.net/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+<script src="/js/lib/crypto.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -160,214 +171,77 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>IDEA插件开发（一）</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/3/30
+        </span>
         
-        
-        
-        <span>
-            <a href="/tags/excel/" style="background: #00bcd4">
+        <span class="category">
+            <a href="/categories/IDEA%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                excel
+                IDEA插件开发
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                插件开发
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" style="color: #03a9f4">插件开发</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%85%8D%E7%BD%AE/" style="color: #00bcd4">配置</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%8A%80%E5%B7%A7/" style="color: #03a9f4">技巧</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E9%85%8D%E7%BD%AE/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                配置
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%8A%80%E5%B7%A7/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                技巧
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/IDEA/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                IDEA
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/maven/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                maven
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E8%84%9A%E6%9C%AC/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                脚本
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL%E4%BC%98%E5%8C%96/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SQL优化
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/SQL%E5%90%88%E5%B9%B6/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SQL合并
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                富文本
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/WPS/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                WPS
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/POI/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                POI
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E7%BC%96%E7%A0%81/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                编码
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E4%B9%B1%E7%A0%81/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                乱码
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2024/3/24</div>
-            <a href="/2024/03/24/%E8%A7%A3%E5%86%B3POI%E4%B8%8E%E8%BE%83%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84WPS%E7%9A%84%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
-                <h3>解决POI与较旧版本的WPS的富文本样式兼容问题</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        解决方案
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="color: #00a596">富文本</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/WPS/" style="color: #03a9f4">WPS</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/POI/" style="color: #ffa2c4">POI</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    
+    <input
+        id="crypto"
+        :class="['input', cryptoStatus]"
+        :disabled="cryptoStatus === 'success'"
+        ref="crypto"
+        placeholder="文章被加密，请输入密码"
+        data-encrypted="U2FsdGVkX1+yLk60zboHvn7IVQDZ4K5D5mg8zKwiTcvaMeejVVWtx3gyi3bYMM+Alsk61cOhZjlpJeFjG2JRbo+1pmsBwOGUuKv0R2VXuxwTwS7V5Yr6iJ7IFiqy+ZbZ84QUuTc4efKxNnfNcHH6nAlClRn46bzSCz3NXk9wAWaFnmyQ9Y1N9nvWBZbbVGk804ehGpCZ76d00RjNwbqJ0FlHYEL4RLZMEbXY5LuWQYNAE0tv/3atwAxU3laCOvZQlARVHBlyMjr5HJtyGUyhKLFkgGHa+WEdbDHpxJ+n0hQM+i73cWPBFQxDPB6AaGIzqMkiRHHeRzHViIw+Ba/4lcbmhPkcwEPVVC1qP0f8xqfUQrmDh/1CCPjA/r+LqIOZMmtJrKvwUOojA4xTvrBTVI5UbvubVxt48TU59Q86QsTwQiNJ0z8Gocuzbng+GbizSXE3RnLKjvoVlVkbxryttJCz6VxU6Td30AXk2VehAkpDukwEh+Mm+RNwbFeEuSQufyjAcxoGjV5zQhrJlcG/fPsAwu5Ew/HmJX+VL4oPJtNeah3wyB0aWo/v4JgNSQ/160+FB1Apzb+u9bRgHVUQ+YJgjakAMTCOIxhjXQYFl+9E21K9LrlHNsJfIpmsK/WOJN0IucEu4oK1GW3Lb3AruhWuB2CYDZwvihfmnaCVD3a82ntbiiKmI7PPgbdlqrsoDp+3InDu67R3s4os1VMum4dalmszWdNEGUEYwGxX67J1N5HmrhPwb60X4zBNyt7IUTTMwP8XqKAIV0HL04A4EA5uRYLpz2v8Su/5vlZW2/d55ee0QoDfaW7c6iGnWM0B+lQN50HJ5MxRjuak/9rgNtzhMFI12KhZQnGQiLR9m3k9oozrlpvCSHQflivo3Tk+yhRQPsX5AaQXB1vTfXTVDvIk7JqvFtlpvbkngDrgR8AlbSj0THVmXnsBmsHIfVSvMx2Tm2GkeM+Dl3bsoeokn5uwsxUR5W3Acz+an1WW4+Ey3O1G3EH/SkEKNs3PnttkCO6aL/n83ZOG7OL1Eklz1JCZlpIG0Ivz5GEKJH+BpZ8Pd0Oufuy9UgMO+7sfDh4l8l1wK4LwaSYdg83tmenxO0OrM48jzlYv/XhbDg9j1sonU21A62auOBoDUgFUbHsAY72dRtLvmqVZmKLXLW/pPztvKlu6GIphb3jZ2ReOCdJWU8anAZFqAEg5OCcNTELAKzvh8pyAIzguUELLKxJRXWRpVsXgqBRu5QlLrFEtU7OiScL6Ol5KNnbuNzCjcymeSkQFTkarsUJvfY0xDkHqNELwWo8D/ebtZythbzuHSOOtvX1/b9R7gnG1h+uHiLc8QxVeTwv8m/7nGQHCFe/Nn/Rgnm4UJQlnHJIojkBL7eIyfhqHzXpaqUJvDjGeKQtBvq+offB1DJ1tRk0Ojbd6F4wVLfx89wzM80PTgp61hIdLfLSqudGANnd6aH+zLysd3PcNkktrlxG3a50MLSeIX7chXYSImUY/+/uxpFRfOt+ScHIBzGJC2eCnQwVLBiebKsP1C8Ku0jWI7/CPx/XTPX3wSRszTbZSeFVcL4TJ/ug="
+        data-shasum="77dfef57503bda9f59ba04b2198205632ab47fc6a8ca57be92eb5187bb1fd5d3"
+        v-model="crypto"
+    />
+    <transition name="fade">
+        <div class="content" ref="content" v-show="cryptoStatus === 'success'"></div>
+    </transition>
+    
+    
+    
+    
+    
+    <div id="comment">
+        <div id="waline-container"></div>
     </div>
+    
+    
     
 </div>
 
@@ -399,6 +273,31 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://waline-1-v1953359.deta.app",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://npm.elemecdn.com/@waline/emojis@1.2.0/weibo,https://npm.elemecdn.com/@waline/emojis@1.2.0/bilibili,https://npm.elemecdn.com/@waline/emojis@1.2.0/qq,https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+        locale: "zh-CN",
+        
+    });
+</script>
+
+
+
     
     <!-- 流星背景特效 -->
     <canvas
